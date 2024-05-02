@@ -6,24 +6,41 @@ public class PlayerControl : MonoBehaviour
     public float jumpForce = 10f;
 
     private Rigidbody2D rb;
-    private bool isGrounded;
+    private bool isGrounded = true;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
     void Update()
     {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
-
-        // Move the player left or right
-        float moveInput = Input.GetAxis("Horizontal");
+        float moveInput = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
-        // Jump
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (!isGrounded)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+            }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        print("On Collision Enter");
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
         }
     }
 }
