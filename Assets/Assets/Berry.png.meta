@@ -140,12 +140,12 @@ TextureImporter:
       name: New Piskel (3)_0
       rect:
         serializedVersion: 2
-        x: 199
-        y: 779
+        x: 200
+        y: 780
         width: 242
         height: 302
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -161,12 +161,12 @@ TextureImporter:
       name: New Piskel (3)_1
       rect:
         serializedVersion: 2
-        x: 199
-        y: 179
+        x: 202
+        y: 161
         width: 242
-        height: 302
+        height: 319
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,7 +181,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8e20557fcd6a8a14da29d272293bbafb
     internalID: 0
     vertices: []
     indices: 
