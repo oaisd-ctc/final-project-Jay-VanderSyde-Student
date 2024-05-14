@@ -604,6 +604,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8018839773564288372, guid: 437a4ba72c6829b468b6ff7fc16e2991, type: 3}
+      propertyPath: raycastDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8018839773564288372, guid: 437a4ba72c6829b468b6ff7fc16e2991, type: 3}
+      propertyPath: damageableLayer.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6106700737665160218, guid: 437a4ba72c6829b468b6ff7fc16e2991, type: 3}
     - {fileID: 1919100410077560842, guid: 437a4ba72c6829b468b6ff7fc16e2991, type: 3}
@@ -616,6 +624,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6169172713865853626, guid: 437a4ba72c6829b468b6ff7fc16e2991, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1742483590}
+    - targetCorrespondingSourceObject: {fileID: 6169172713865853626, guid: 437a4ba72c6829b468b6ff7fc16e2991, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1742483591}
   m_SourcePrefab: {fileID: 100100000, guid: 437a4ba72c6829b468b6ff7fc16e2991, type: 3}
 --- !u!1 &942913113
 GameObject:
@@ -1357,7 +1368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
-  currentHealth: 0
+  currentHealth: 3
   heartPrefab: {fileID: 4351977572483486880, guid: a3a2964e28207744f8ab70f71b4157db, type: 3}
   heartContainer: {fileID: 555184293}
   gameOverScreen: {fileID: 0}
@@ -1441,6 +1452,28 @@ PolygonCollider2D:
       - {x: 0.8917802, y: -2.2964957}
       - {x: 0.60733575, y: -2.0339315}
   m_UseDelaunayMesh: 0
+--- !u!95 &1742483591
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742483579}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6005e9b1e9077b64191365d23ed2dcd3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!224 &1894549303 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2368391361911021229, guid: a3a2964e28207744f8ab70f71b4157db, type: 3}
@@ -1617,6 +1650,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 2044663657758351945, guid: ce2932904a170154787f03b71ed9a010, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2044663657758351945, guid: ce2932904a170154787f03b71ed9a010, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 4279129501746049381, guid: ce2932904a170154787f03b71ed9a010, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14
@@ -1656,6 +1697,10 @@ PrefabInstance:
     - target: {fileID: 4279129501746049381, guid: ce2932904a170154787f03b71ed9a010, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8431902464966406393, guid: ce2932904a170154787f03b71ed9a010, type: 3}
+      propertyPath: m_Mass
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7870071887537273189, guid: ce2932904a170154787f03b71ed9a010, type: 3}

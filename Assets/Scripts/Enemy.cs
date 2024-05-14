@@ -71,7 +71,7 @@ public class SimpleEnemy : MonoBehaviour
         ContactFilter2D contactFilter = new ContactFilter2D();
         contactFilter.useTriggers = false;
         Collider2D[] overlapResults = new Collider2D[5]; // Adjust the size as needed
-        int numOverlaps = enemyCollider.OverlapCollider(contactFilter, overlapResults);
+        int numOverlaps = enemyCollider.Overlap(contactFilter, overlapResults);
 
         for (int i = 0; i < numOverlaps; i++)
         {
