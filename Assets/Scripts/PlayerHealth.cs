@@ -3,22 +3,36 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 3; // Maximum health of the player
-    public int currentHealth; // Current health of the player
-    public Text healthText; // Text to display player's health
-    public GameObject loseScreen; // Game over panel to be activated when player loses all hearts
+    public int maxHealth = 3;
+    public int currentHealth;
+
+    public GameObject heartPrefab;
+    public Transform heartContainer;
+
+    public GameObject gameOverScreen;
+
+    private Image[] hearts;
 
     private void Start()
     {
         currentHealth = maxHealth;
-        UpdateHealthUI();
+        hearts = new Image[maxHealth];
+        InitializeHearts();
     }
 
-    // Function to decrease player's health
-    public void TakeDamage(int damage)
+    private void InitializeHearts()
     {
-        currentHealth -= damage;
-        UpdateHealthUI();
+        for (int i = 0; i < maxHealth; i++)
+        {
+            GameObject heartObject = Instantiate(heartPrefab, heartContainer);
+            hearts[i] = heartObject.GetComponent<Image>();
+        }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        UpdateHearts();
 
         if (currentHealth <= 0)
         {
@@ -26,23 +40,24 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    // Function to update player's health UI
-    void UpdateHealthUI()
+    private void UpdateHearts()
     {
-        if (healthText != null)
+        for (int i = 0; i < maxHealth; i++)
         {
-            healthText.text = "Health: " + currentHealth;
+            if (i < currentHealth)
+            {
+                hearts[i].enabled = true; // Show heart
+            }
+            else
+            {
+                hearts[i].enabled = false; // Hide heart
+            }
         }
     }
 
-    // Function to handle game over
-    void GameOver()
+    private void GameOver()
     {
-        // Activate game over panel
-        if (loseScreen != null)
-        {
-            loseScreen.SetActive(true);
-        }
-        // You can add more actions here such as showing a game over screen, resetting the level, etc.
+        // Activate game over screen or perform other game over actions
+        gameOverScreen.SetActive(true);
     }
 }

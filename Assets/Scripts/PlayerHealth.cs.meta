@@ -3,7 +3,10 @@ guid: dae08f41e412424428c0cce87ac9f140
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - heartPrefab: {fileID: 4351977572483486880, guid: a3a2964e28207744f8ab70f71b4157db, type: 3}
+  - heartContainer: {instanceID: 0}
+  - gameOverScreen: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

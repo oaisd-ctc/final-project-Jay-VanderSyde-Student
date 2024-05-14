@@ -1,42 +1,90 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class SimpleEnemy : MonoBehaviour
 {
-    public int damage = 1; // Amount of damage the enemy deals to the player
+    public float moveSpeed = 2f;
+    public Transform leftPoint;
+    public Transform rightPoint;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private bool movingRight = true;
+    private PlayerHealth enemyHealth;
+
+    private void Start()
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            // Get the contact points of the collision
-            ContactPoint2D[] contacts = new ContactPoint2D[1];
-            collision.GetContacts(contacts);
+        enemyHealth = GetComponent<PlayerHealth>();
+    }
 
-            // Check if the player collided with the top of the enemy
-            if (IsPlayerOnTop(contacts[0].point))
+    private void Update()
+    {
+        // Move the enemy back and forth between left and right points
+        if (transform.position.x >= rightPoint.position.x)
+        {
+            movingRight = false;
+        }
+        else if (transform.position.x <= leftPoint.position.x)
+        {
+            movingRight = true;
+        }
+
+        Vector3 movement = movingRight ? Vector3.right : Vector3.left;
+        transform.Translate(movement * moveSpeed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Check if the collided object is the player
+        if (other.CompareTag("Player"))
+        {
+            // Check if the player is jumping on the enemy
+            if (IsPlayerJumpingOnEnemy(other))
             {
-                // Destroy the enemy
-                Destroy(gameObject);
+                if (enemyHealth != null)
+                {
+                    // Take away one heart from the enemy
+                    enemyHealth.TakeDamage(1);
+
+                    // Destroy the enemy if it loses all health
+                    if (enemyHealth.currentHealth <= 0)
+                    {
+                        Destroy(gameObject);
+                    }
+                }
             }
             else
             {
-                // Deal damage to the player
-                PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+                // Get the PlayerHealth component from the player
+                PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+
                 if (playerHealth != null)
                 {
-                    playerHealth.TakeDamage(damage);
+                    // Take away one heart from the player
+                    playerHealth.TakeDamage(1);
                 }
             }
         }
     }
 
-    // Function to check if the player is on top of the enemy
-    private bool IsPlayerOnTop(Vector2 contactPoint)
+    private bool IsPlayerJumpingOnEnemy(Collider2D playerCollider)
     {
-        // Adjust this value according to the size of your enemy sprite
-        float tolerance = 0.1f;
+        // Calculate the overlap area between the enemy's collider and the player's collider
+        Collider2D enemyCollider = GetComponent<Collider2D>();
+        ContactFilter2D contactFilter = new ContactFilter2D();
+        contactFilter.useTriggers = false;
+        Collider2D[] overlapResults = new Collider2D[5]; // Adjust the size as needed
+        int numOverlaps = enemyCollider.OverlapCollider(contactFilter, overlapResults);
 
-        // Compare the y position of the contact point with the enemy's position
-        return contactPoint.y > transform.position.y + tolerance;
+        for (int i = 0; i < numOverlaps; i++)
+        {
+            if (overlapResults[i] == playerCollider)
+            {
+                // Check if the player is above the enemy
+                if (playerCollider.transform.position.y > transform.position.y)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
