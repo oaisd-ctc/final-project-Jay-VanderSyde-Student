@@ -33,11 +33,6 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth -= damageAmount;
         UpdateHearts();
-
-        if (currentHealth <= 0)
-        {
-            GameOver();
-        }
     }
 
     private void UpdateHearts()
@@ -53,11 +48,5 @@ public class PlayerHealth : MonoBehaviour
                 hearts[i].enabled = false; // Hide heart
             }
         }
-    }
-
-    private void GameOver()
-    {
-        // Activate game over screen or perform other game over actions
-        gameOverScreen.SetActive(true);
     }
 }

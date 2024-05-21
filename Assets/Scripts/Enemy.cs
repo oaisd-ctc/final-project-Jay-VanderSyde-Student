@@ -87,4 +87,13 @@ public class SimpleEnemy : MonoBehaviour
 
         return false;
     }
+
+    public void DestroyEnemy()
+    {
+        // Call the LevelManager to load the next level
+        LevelManager.Instance.LoadNextLevel();
+
+        // Destroy the enemy game object
+        Destroy(gameObject);
+    }
 }

@@ -43,19 +43,6 @@ public class PlayerControl : MonoBehaviour
     {
         // Apply jump force to the player
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
-        // Check for objects below the player and apply damage if any
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + Vector3.up * 0.1f, Vector2.down, raycastDistance, damageableLayer);
-        if (hit.collider != null)
-        {
-            // Get the health component of the object
-            PlayerHealth objectHealth = hit.collider.GetComponent<PlayerHealth>();
-            if (objectHealth != null)
-            {
-                // Deal damage to the object
-                objectHealth.TakeDamage(1);
-            }
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -79,8 +66,6 @@ public class PlayerControl : MonoBehaviour
         // Update animation based on player movement
         if (moveInput != 0)
         {
-            animator.SetBool("IsRunning", true);
-
             // Flip player sprite if moving left
             if (moveInput < 0)
             {
@@ -92,10 +77,6 @@ public class PlayerControl : MonoBehaviour
                 FlipSprite(false);
             }
         }
-        else
-        {
-            animator.SetBool("IsRunning", false);
-        }
     }
 
     private void FlipSprite(bool facingLeft)
@@ -106,6 +87,17 @@ public class PlayerControl : MonoBehaviour
         {
             // Flip the sprite based on direction
             spriteRenderer.flipX = facingLeft;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            // Call the LevelManager to load the next level
+            LevelManager.Instance.LoadNextLevel();
+
+            // Destroy the item
+            Destroy(other.gameObject);
         }
     }
 }
